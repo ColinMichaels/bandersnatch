@@ -1,0 +1,271 @@
+
+section.section {
+  @include flexbox();
+  @include justify-content(center);
+  @include align-content(center);
+  @include flex(1 auto);
+  &.no-pad {
+    padding: 0 !important;
+  }
+  &.no-border {
+    border: none !important;
+  }
+  &:last-of-type {
+    border-bottom: none;
+  }
+
+  &.row {
+    .container, .container-large {
+      @include flexbox();
+      @include flex-direction(row);
+    }
+  }
+  &.row-wrap {
+    .container, .container-large {
+      @include flexbox();
+      @include flex-flow(row wrap);
+      @include justify-content(flex-start);
+    }
+  }
+  &.column {
+    .container, .container-large {
+      @include flexbox();
+      @include flex-direction(column);
+    }
+  }
+
+  /* ===== Background colors from the section builder ====== */
+
+  &.bkg-white {
+    background-color: $white !important;
+  }
+
+  }
+
+  /* ======  Section Sizes: Full, three-quarter, sixty-five, half, quarter, third ===== */
+  &.full {
+    width: 100%;
+  }
+  &.three-quarter {
+    width: 75%;
+  }
+  &.sixty-five {
+    width: 65%;
+  }
+  &.half {
+    width: 50%;
+  }
+  &.third {
+    width: 33%;
+  }
+  &.quarter {
+    width: 25%;
+  }
+
+  .svg-normal {
+    width: 100%;
+    height: 100%;
+  }
+
+  .items {
+    @include flexbox();
+    @include flex-flow(column nowrap);
+    @include justify-content(center);
+    @include align-content(center);
+
+    &.row {
+      @include flex-direction(row);
+    }
+    &.column {
+      @include flex-direction(column);
+    }
+
+    &.center {
+      @include align-items(center);
+      text-align: center;
+    }
+    &.left {
+      @include align-items(flex-start);
+      text-align: left;
+    }
+    &.right {
+      @include align-items(flex-end);
+      text-align: right;
+    }
+    &.justified {
+      @include align-items(stretch);
+      text-align: justify;
+    }
+
+    &.full {
+      width: 100%;
+    }
+    &.three-quarter {
+      width: 75%;
+    }
+    &.sixty-five {
+      width: 65%;
+    }
+    &.half {
+      width: 50%;
+    }
+    &.third {
+      width: 33%;
+    }
+    &.quarter {
+      width: 25%;
+    }
+    .svg-img {
+      width: 100%;
+      background-size: contain;
+      background-repeat: no-repeat;
+      height: 0;
+      padding: 0; /* reset */
+      padding-bottom: calc(100% * 3 / 4);
+    }
+    &.text {
+      &.half {
+        &.left {
+          padding-right: 100px;
+        }
+        &.right {
+          padding-left: 100px;
+        }
+      }
+
+    }
+
+    .svg {
+      width: 100%;
+
+    }
+    .boxes {
+      @include flexbox();
+      @include flex-flow(row nowrap);
+      @include justify-content(center);
+      @include align-content(center);
+      @include flex(1 auto);
+      margin-top: 50px;
+      width: 100%;
+      .box {
+        @include flexbox();
+        @include flex-flow(column nowrap);
+        @include justify-content(center);
+        @include align-content(center);
+        @include flex-grow(1);
+        @include flex-shrink(0);
+        @include flex-basis(auto);
+        background: $screenColor;
+        color: $white;
+        padding: 15px;
+        max-width: 210px;
+        max-height: 210px;
+        min-height: 210px;
+        margin: 0 20px;
+        @include hover-transition();
+        strong {
+          @extend .font-main-demi !optional;
+          @extend .upper !optional;
+        }
+        img {
+          width: 60px;
+          height: 60px;
+          margin: 0 auto;
+        }
+        p {
+          span {
+            text-decoration: underline;
+          }
+        }
+
+      }
+    }
+
+
+    &.btnclass {
+      position: relative;
+      z-index: 1;
+      @include justify-content(space-evenly !important);
+      margin-top: 60px;
+      .custom-btn {
+        &.open {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $breakpoint-tablet) {
+                                                      
+  section.section {
+    padding: 20px 0;
+    .container, .container-large, .container-small {
+      flex-direction: column !important;
+      margin: 0 auto !important;
+      .items {
+        padding: 0 !important;
+      }
+    }
+
+    .items {
+      @include flex-flow(row wrap);
+      width: 100% !important;
+
+      &.half {
+        width: 100%;
+        &.left {
+          padding-right: 0px;
+          margin-bottom: 50px;
+        }
+        &.right {
+          padding-left: 0px;
+          margin-top: 50px;
+        }
+
+      }
+      &.quarter, &.third {
+        width: 50%;
+      }
+
+      &.left, &.right {
+        align-items: center;
+        justify-content: center;
+      }
+      &.doublebox {
+        .headline {
+          width: 100%;
+        }
+        .boxes {
+          @include flex-flow(column nowrap);
+          .box {
+            @include flex-basis(100%);
+          }
+        }
+      }
+
+      .btns {
+        @include flex-direction(column);
+        align-items: center;
+        justify-content: center !important;
+        text-align: center;
+        width: 100%;
+        a {
+          margin: 10px auto;
+        }
+      }
+
+      &.left, &.right {
+        h1, h2, h3, h4, h5, p {
+          text-align: left;
+          width: 100%;
+        }
+      }
+      h3 {
+        margin-bottom: 15px;
+      }
+    }
+  }
+}
+
+

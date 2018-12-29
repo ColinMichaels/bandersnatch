@@ -1,0 +1,85 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Overpass+Mono:400,700');
+// Variables
+@import 'partials/variables', 'partials/mixins';
+
+// Bootstrap
+//@import '~bootstrap/scss/bootstrap';
+
+
+body {
+    background: $black;
+    font-family: 'Overpass Mono', monospace;
+}
+
+.hide, .visible-mobile, .visible-tablet{
+    display:none;
+}
+
+#app {
+
+    #game {
+        @include flexbox();
+        @include justify-content(center);
+        @include align-content(center);
+        @include flex-flow(column nowrap);
+        @include flex(1 0 auto);
+        background: $screenColor;
+        color: $white;
+        text-align:center;;
+        margin:0 auto;
+        width:100%;
+        .screen{
+            height:100%;
+            padding:25% 0;
+        }
+        .top-bar, .bottom-bar {
+            position: absolute;
+            height: 15%;
+            width: 100%;
+            background: $black;
+            @include hover-transition(all 2.3s ease-in-out);
+            &.active {
+                height: 40%;
+            }
+        }
+        }
+
+        .top-bar{
+           top:0;
+            left:0;
+        }
+        .bottom-bar{
+            bottom:0;
+            left:0;
+
+    }
+}
+
+.typewriter {
+    overflow: hidden; /* Ensures the content is not revealed until the animation */
+    border-right: .15em solid greenyellow; /* The typwriter cursor */
+    white-space: nowrap; /* Keeps the content on a single line */
+    margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+    letter-spacing: .15em; /* Adjust as needed */
+    animation:
+        typing 3.5s steps(40, end),
+        blink-caret .75s step-end infinite alternate;
+}
+
+.waitingForConnection {
+    animation: blinker 0.1s cubic-bezier(.5, 0, 1, 1) infinite alternate;
+}
+@keyframes blinker { to { opacity: 0; } }
+
+/* The typing effect */
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: orange; }
+}

@@ -1,0 +1,145 @@
+@import url(https://fonts.googleapis.com/css?family=Overpass+Mono:400,700);/* MEDIA QUERY BREAKPOINTS */
+
+body {
+  background: #000;
+  font-family: 'Overpass Mono', monospace;
+}
+
+.hide,
+.visible-mobile,
+.visible-tablet {
+  display: none;
+}
+
+#app #game {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -moz-justify-content: center;
+  -ms-justify-content: center;
+  -webkit-box-pack: center;
+          justify-content: center;
+  -ms-flex-pack: center;
+  -ms-align-content: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  -ms-flex-flow: column nowrap;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-flow: column nowrap;
+  -webkit-box-flex: 1 0 auto;
+  -ms-flex: 1 0 auto;
+  flex: 1 0 auto;
+  background: #111111;
+  color: #fff;
+  text-align: center;
+  margin: 0 auto;
+  width: 100%;
+}
+
+#app #game .screen {
+  height: 100%;
+  padding: 25% 0;
+}
+
+#app #game .top-bar,
+#app #game .bottom-bar {
+  position: absolute;
+  height: 15%;
+  width: 100%;
+  background: #000;
+  -webkit-transition: all 2.3s ease-in-out;
+  transition: all 2.3s ease-in-out;
+}
+
+#app #game .top-bar.active,
+#app #game .bottom-bar.active {
+  height: 40%;
+}
+
+#app .top-bar {
+  top: 0;
+  left: 0;
+}
+
+#app .bottom-bar {
+  bottom: 0;
+  left: 0;
+}
+
+.typewriter {
+  overflow: hidden;
+  /* Ensures the content is not revealed until the animation */
+  border-right: .15em solid greenyellow;
+  /* The typwriter cursor */
+  white-space: nowrap;
+  /* Keeps the content on a single line */
+  margin: 0 auto;
+  /* Gives that scrolling effect as the typing happens */
+  letter-spacing: .15em;
+  /* Adjust as needed */
+  -webkit-animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite alternate;
+          animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite alternate;
+}
+
+.waitingForConnection {
+  -webkit-animation: blinker 0.1s cubic-bezier(0.5, 0, 1, 1) infinite alternate;
+          animation: blinker 0.1s cubic-bezier(0.5, 0, 1, 1) infinite alternate;
+}
+
+@-webkit-keyframes blinker {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes blinker {
+  to {
+    opacity: 0;
+  }
+}
+
+/* The typing effect */
+
+@-webkit-keyframes typing {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 100%;
+  }
+}
+
+/* The typewriter cursor effect */
+
+@-webkit-keyframes blink-caret {
+  from, to {
+    border-color: transparent;
+  }
+
+  50% {
+    border-color: orange;
+  }
+}
+
+@keyframes blink-caret {
+  from, to {
+    border-color: transparent;
+  }
+
+  50% {
+    border-color: orange;
+  }
+}
+

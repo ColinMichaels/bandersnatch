@@ -1,0 +1,49 @@
+
+// Body
+$body-bg: #f8fafc;
+
+// Typography
+$font-family-sans-serif: 'Overpass Mono', monospace;
+$font-size-base: 0.9rem;
+$line-height-base: 1.6;
+
+// Colors
+$black: #000;
+$white: #fff;
+
+$fontColor:$white;  
+$screenColor: #111111;
+
+$blue: #3490dc;
+$indigo: #6574cd;
+$purple: #9561e2;
+$pink: #f66D9b;
+$red: #e3342f;
+$orange: #f6993f;
+$yellow: #ffed4a;
+$green: #38c172;
+$teal: #4dc0b5;
+$cyan: #6cb2eb;
+
+
+
+$extraLight: 100;
+$light: 300;
+$regular: 400;
+$bold: 700;
+
+$letterspace: -0.5px;
+$lineheight : 25px;
+
+$btn-border-radius: 5px;
+
+/* MEDIA QUERY BREAKPOINTS */
+
+$breakpoint-desktop-large : 1920px;
+$breakpoint-desktop-med : 1440px;
+$breakpoint-desktop-mid : 1295px;
+$breakpoint-desktop-small : 1060px;
+$breakpoint-tablet-large : 895px;
+$breakpoint-tablet : 785px;
+$breakpoint-phone : 480px;
+
