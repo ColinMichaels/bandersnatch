@@ -1,8 +1,68 @@
-@import url(https://fonts.googleapis.com/css?family=Overpass+Mono:400,700);/* MEDIA QUERY BREAKPOINTS */
+@import url(https://fonts.googleapis.com/css?family=Overpass+Mono:400,700);@font-face {
+  font-family: 'eight-bit_madnessregular';
+  src: url(/fonts/8-bit_madness-webfont.woff2?7a117273187c418aa6f6075b2632be5b) format("woff2"), url(/fonts/8-bit_madness-webfont.woff?50d7efaaf28038d3008e2d6819f5b3fe) format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* MEDIA QUERY BREAKPOINTS */
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+::-moz-selection {
+  background: transparent;
+}
+
+::selection {
+  background: transparent;
+}
 
 body {
+  background: #111111;
+  font-family: 'eight-bit_madnessregular', Arial, sans-serif;
+}
+
+body.dark {
   background: #000;
-  font-family: 'Overpass Mono', monospace;
+}
+
+*:focus {
+  outline: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+p,
+input,
+button,
+span {
+  font-family: 'eight-bit_madnessregular', Arial, sans-serif;
+}
+
+h1 {
+  font-size: 4em;
+}
+
+h3 {
+  font-size: 2.5em;
+  color: forestgreen;
+}
+
+.text-red {
+  color: #e3342f;
+}
+
+.text-white {
+  color: #fff;
 }
 
 .hide,
@@ -30,16 +90,33 @@ body {
   -webkit-box-flex: 1 0 auto;
   -ms-flex: 1 0 auto;
   flex: 1 0 auto;
-  background: #111111;
+  background: #6b5eb5;
   color: #fff;
   text-align: center;
   margin: 0 auto;
   width: 100%;
 }
 
+#app #game.dark {
+  background: #111111;
+}
+
 #app #game .screen {
   height: 100%;
-  padding: 25% 0;
+  padding: 15% 0 25%;
+  overflow: hidden;
+}
+
+#app #game .screen h1 {
+  white-space: pre-wrap;
+}
+
+#app #game .screen h2 {
+  font-size: 2em;
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+  padding-bottom: 100px;
+  color: #595959;
 }
 
 #app #game .top-bar,
@@ -47,9 +124,14 @@ body {
   position: absolute;
   height: 15%;
   width: 100%;
-  background: #000;
+  background: #352879;
   -webkit-transition: all 2.3s ease-in-out;
   transition: all 2.3s ease-in-out;
+}
+
+#app #game .top-bar.dark,
+#app #game .bottom-bar.dark {
+  background: #000;
 }
 
 #app #game .top-bar.active,
@@ -65,6 +147,83 @@ body {
 #app .bottom-bar {
   bottom: 0;
   left: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -moz-flex-direction: column;
+  -ms-flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  -moz-justify-content: space-evenly;
+  -ms-justify-content: space-evenly;
+  -webkit-box-pack: space-evenly;
+          justify-content: space-evenly;
+  -ms-flex-pack: space-evenly;
+}
+
+#app .bottom-bar .container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-flow: row nowrap;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-flow: row nowrap;
+  -moz-justify-content: space-evenly;
+  -ms-justify-content: space-evenly;
+  -webkit-box-pack: space-evenly;
+          justify-content: space-evenly;
+  -ms-flex-pack: space-evenly;
+  -moz-align-items: center;
+  -ms-align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  opacity: 0;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+#app .bottom-bar .container.active {
+  opacity: 1;
+}
+
+#app .bottom-bar .container .choice {
+  font-size: 2.5em;
+  background: none;
+  border: none;
+  color: #fff;
+  border-bottom: 3px solid transparent;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+#app .bottom-bar .container .choice:hover {
+  border-bottom: 3px solid #fff;
+}
+
+nav {
+  position: absolute;
+  top: 0;
+  height: 100px;
+  z-index: 9999;
+  width: 100%;
+}
+
+nav .navbar-menu img {
+  position: absolute;
+  top: 50%;
+  right: 3%;
+  width: 50px;
+  height: 50px;
+  opacity: 0.1;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+nav .navbar-menu img:hover {
+  opacity: 1.0;
 }
 
 .typewriter {
@@ -72,14 +231,14 @@ body {
   /* Ensures the content is not revealed until the animation */
   border-right: .15em solid greenyellow;
   /* The typwriter cursor */
-  white-space: nowrap;
+  white-space: pre-wrap;
   /* Keeps the content on a single line */
   margin: 0 auto;
   /* Gives that scrolling effect as the typing happens */
-  letter-spacing: .15em;
+  letter-spacing: .10em;
   /* Adjust as needed */
-  -webkit-animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite alternate;
-          animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite alternate;
+  -webkit-animation: typing 1.5s steps(100, end), blink-caret 0.75s step-end infinite alternate;
+          animation: typing 1.5s steps(100, end), blink-caret 0.75s step-end infinite alternate;
 }
 
 .waitingForConnection {
@@ -129,7 +288,7 @@ body {
   }
 
   50% {
-    border-color: orange;
+    border-color: greenyellow;
   }
 }
 
@@ -139,7 +298,7 @@ body {
   }
 
   50% {
-    border-color: orange;
+    border-color: greenyellow;
   }
 }
 

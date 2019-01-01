@@ -1,20 +1,25 @@
 <template>
-    <div>
-        <section class="screen">
-            <h1>{{message}}</h1>
-            <input class='hide' v-model="message"/>
-        </section>
-
-        <input>
-    </div>
+    <section class="screen">
+        <div class="container">
+            <h2 :class="consoleClass" v-html="consoleMessage"></h2>
+            <h1 :class="classEfx">{{message}}</h1>
+            <h3>{{inputMessage}}</h3>
+        </div>
+    </section>
 </template>
 
 <script>
+    let timeout = 100;
+    import {EventBus} from '../../event-bus.js'
 
     export default {
         data() {
             return {
-                message: ''
+                message: '',
+                classEfx: '',
+                inputMessage: '',
+                consoleMessage: '****** BANDERSNATCH ****** <br/> 64K RAM SYSTEM 38911 BASIC BYTES FREE',
+                consoleClass: 'computer typewriter'
             }
         },
 
@@ -24,16 +29,49 @@
                 default: false
             }
         },
+        methods: {
+            updateMessage(message) {
+                this.classEfx = 'hide';
+                setTimeout(() => {
+                    this.message = message;
+                    this.classEfx = 'typewriter text-white';
+                }, 100);
+
+            },
+            updateConsole(message){
+                this.consoleMessage = message;
+            },
+            updateInput(message){
+                if(message === 'clear' || message === '') {
+                    this.inputMessage = '';
+                }else{
+                    this.inputMessage = this.inputMessage + message;
+                }
+            }
+        },
+        mounted() {
+            EventBus.$on('update-message', this.updateMessage);
+            EventBus.$on('update-console', this.updateConsole);
+            EventBus.$on('update-input', this.updateInput);
+            $('body, #game, .top-bar, .bottom-bar').addClass('dark');
+        },
         created() {
             setTimeout(() => {
-                console.log('timed');
-                $('.screen').find('h1').addClass('typewriter');
-                this.message = "welcome to Bandersnatch";
+
+                this.updateMessage("**** welcome to Bandersnatch *****");
                 setTimeout(() => {
                     $('.top-bar, .bottom-bar').removeClass('active');
-                }, 1000);
 
-            }, 1000);
+                    setTimeout(() => {
+                        $('.container').addClass('active');
+                        this.updateInput('');
+                        this.updateMessage("Do you believe you are in control of your own destiny?");
+                    }, timeout * 3);
+
+
+                }, timeout * 4);
+
+            }, timeout * 5);
 
         }
     }

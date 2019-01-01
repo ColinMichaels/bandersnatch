@@ -15,7 +15,10 @@ class CreateScenesTable extends Migration
     {
         Schema::create('scenes', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title');
+            $table->string('title')->default('default');
+            $table->string('question')->nullable();
+            $table->string('responses')->nullable();
+            $table->unsignedTinyInteger( 'sound_id');
             $table->timestamps();
         });
     }

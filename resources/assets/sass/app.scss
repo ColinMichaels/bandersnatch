@@ -1,19 +1,69 @@
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Overpass+Mono:400,700');
+
+@font-face {
+    font-family: 'eight-bit_madnessregular';
+    src: url('../fonts/8-bit_madness-webfont.woff2') format('woff2'),
+    url('../fonts/8-bit_madness-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
 // Variables
 @import 'partials/variables', 'partials/mixins';
 
 // Bootstrap
 //@import '~bootstrap/scss/bootstrap';
 
-
-body {
-    background: $black;
-    font-family: 'Overpass Mono', monospace;
+*, *:before, *:after {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
 }
 
-.hide, .visible-mobile, .visible-tablet{
-    display:none;
+::selection {
+    background: transparent;
+}
+
+
+
+body {
+    background: $screenColor;
+    font-family: 'eight-bit_madnessregular', Arial, sans-serif;
+
+    &.dark{
+        background: $black;
+    }
+}
+
+*:focus {
+    outline: none;
+}
+
+
+h1,h2,h3,h4,h5,p,input,button,span{
+    font-family: 'eight-bit_madnessregular', Arial, sans-serif;
+}
+
+h1{
+    font-size: 4em;
+}
+h3{
+    font-size: 2.5em;
+    color: forestgreen;
+}
+
+
+.text-red{
+    color:$red;
+}
+.text-white{
+    color:$white;
+}
+
+.hide, .visible-mobile, .visible-tablet {
+    display: none;
 }
 
 #app {
@@ -24,62 +74,152 @@ body {
         @include align-content(center);
         @include flex-flow(column nowrap);
         @include flex(1 0 auto);
-        background: $screenColor;
-        color: $white;
-        text-align:center;;
-        margin:0 auto;
-        width:100%;
-        .screen{
-            height:100%;
-            padding:25% 0;
+        background: $indigo;
+        color: $fontColor;
+        text-align: center;;
+        margin: 0 auto;
+        width: 100%;
+        &.dark{
+            background: $screenColor;
         }
+
+        .screen {
+            height: 100%;
+            padding: 15% 0 25%;
+            overflow:hidden;
+            h1{
+                white-space: pre-wrap;
+            }
+            h2{
+                font-size:2em;
+                align-self:flex-start;
+                padding-bottom:100px;
+                color:darken($fontColor,65%);
+            }
+
+            
+        }
+
         .top-bar, .bottom-bar {
             position: absolute;
             height: 15%;
             width: 100%;
-            background: $black;
+            background: $purple;
+            &.dark{
+                background: $black;
+            }
             @include hover-transition(all 2.3s ease-in-out);
+
             &.active {
                 height: 40%;
             }
         }
+    }
+
+    .top-bar {
+        top: 0;
+        left: 0;
+    }
+
+    .bottom-bar {
+        bottom: 0;
+        left: 0;
+        @include flexbox();
+        @include flex-direction(column);
+        @include justify-content(space-evenly);
+        .container {
+            @include flexbox();
+            @include flex-flow(row nowrap);
+            @include justify-content(space-evenly);
+            @include align-items(center);
+            opacity: 0;
+            @include hover-transition();
+            &.active{
+                opacity: 1;
+            }
+
+            .choice {
+                font-size: 2.5em;
+                background: none;
+                border: none;
+                color: $white;
+                border-bottom: 3px solid transparent;
+                @include hover-transition();
+
+                &:hover {
+                    border-bottom: 3px solid $white;
+                }
+
+            }
         }
 
-        .top-bar{
-           top:0;
-            left:0;
-        }
-        .bottom-bar{
-            bottom:0;
-            left:0;
 
     }
 }
 
+
+nav{
+    position: absolute;
+    top: 0;
+    height: 100px;
+    z-index: 9999;
+    width: 100%;
+    .navbar-menu{
+        img{
+            position: absolute;
+            top: 50%;
+            right: 3%;
+            width: 50px;
+            height: 50px;
+            opacity:0.1;
+            @include hover-transition();
+            &:hover{
+                opacity: 1.0;
+            }
+        }
+    }
+}
+
+
+
+
+
 .typewriter {
     overflow: hidden; /* Ensures the content is not revealed until the animation */
     border-right: .15em solid greenyellow; /* The typwriter cursor */
-    white-space: nowrap; /* Keeps the content on a single line */
+    white-space: pre-wrap; /* Keeps the content on a single line */
     margin: 0 auto; /* Gives that scrolling effect as the typing happens */
-    letter-spacing: .15em; /* Adjust as needed */
-    animation:
-        typing 3.5s steps(40, end),
-        blink-caret .75s step-end infinite alternate;
+    letter-spacing: .10em; /* Adjust as needed */
+    animation: typing 1.5s steps(100, end),
+    blink-caret .75s step-end infinite alternate;
 }
 
 .waitingForConnection {
     animation: blinker 0.1s cubic-bezier(.5, 0, 1, 1) infinite alternate;
 }
-@keyframes blinker { to { opacity: 0; } }
+
+@keyframes blinker {
+    to {
+        opacity: 0;
+    }
+}
 
 /* The typing effect */
 @keyframes typing {
-    from { width: 0 }
-    to { width: 100% }
+    from {
+        width: 0
+    }
+    to {
+        width: 100%
+    }
 }
 
 /* The typewriter cursor effect */
 @keyframes blink-caret {
-    from, to { border-color: transparent }
-    50% { border-color: orange; }
+    from, to {
+        border-color: transparent
+    }
+    50% {
+        border-color: greenyellow;
+    }
 }

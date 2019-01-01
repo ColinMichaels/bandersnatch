@@ -7,16 +7,17 @@
             </div>
         @endif
         <section class="section" id="game">
+            <Navbar></Navbar>
                <game></game>
         </section>
     </div>
-    </div>
+
 @endsection
 @push('scripts')
     <script>
-
         const app = new Vue({
-            el : "#game"
+            el : "#game",
+            name: 'Game'
         } );
     </script>
 @endpush

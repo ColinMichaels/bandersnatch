@@ -15,12 +15,5 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-
-Vue.component('game', require('./components/Game.vue'));
-
-jQuery(document).ready(function($){
-    $('.bottom-bar, .top-bar').on('click',function(){
-        $(this).toggleClass('active');
-    });
-
-});
+Vue.component('Game', require('./components/Game.vue'));
+Vue.component('Navbar', require('./components/navbarComponent'));
