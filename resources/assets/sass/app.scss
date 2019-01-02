@@ -11,10 +11,12 @@
 }
 
 // Variables
-@import 'partials/variables', 'partials/mixins';
+@import 'partials/app_variables', 'partials/mixins', 'partials/tables','partials/forms';
 
 // Bootstrap
-//@import '~bootstrap/scss/bootstrap';
+//@import '~/bootstrap/scss/bootstrap';
+
+//@import '../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap';
 
 *, *:before, *:after {
     box-sizing: border-box;
@@ -25,7 +27,6 @@
 ::selection {
     background: transparent;
 }
-
 
 
 body {
@@ -41,6 +42,14 @@ body {
     outline: none;
 }
 
+.btn{
+    background: $indigo;
+    color:$white;
+    font-size:1.4em;
+    padding:20px 30px;
+    margin-bottom:20px;
+}
+
 
 h1,h2,h3,h4,h5,p,input,button,span{
     font-family: 'eight-bit_madnessregular', Arial, sans-serif;
@@ -52,6 +61,37 @@ h1{
 h3{
     font-size: 2.5em;
     color: forestgreen;
+}
+
+table{
+    @extend %table;
+    color:$white;
+    font-size:2em;
+    &.small{
+        font-size:1.25em;
+    }
+    tr,td,th{
+        color:$white;
+    }
+}
+
+section.admin{
+    margin-top:200px;
+    .options{
+        padding:50px 0;
+    }
+
+    .grid{
+        @include flexbox();
+        @include justify-content(space-evenly);
+        @include flex-flow(row wrap);
+        .half{
+            width:50%;
+        }
+        .full{
+            width:100%;
+        }
+    }
 }
 
 

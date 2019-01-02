@@ -16,6 +16,8 @@ class CreateGamesTable extends Migration
         Schema::create('games', function (Blueprint $table) {
             $table->increments('id');
             $table->string('player_id');
+            $table->unsignedTinyInteger( 'scene_id')->default(1);
+            $table->unsignedTinyInteger( 'prev_scene_id')->default(1);
             $table->timestamps();
         });
     }

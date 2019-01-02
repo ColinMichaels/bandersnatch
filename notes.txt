@@ -1,0 +1,8 @@
+Allow user to input any question
+
+- search our local responses first , if not go out to google and return top answer
+
+
+
+
+Game -> player ( username, email, score, options) -> scene -> sounds | question | responses | sequences

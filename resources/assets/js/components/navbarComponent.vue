@@ -12,12 +12,17 @@
     </div>
 
     <div class="navbar-menu" id="app-navbar-collapse">
-           <img src="/images/Glyph.svg" alt="Glyph"/>
+           <img src="/images/Glyph.svg" alt="Glyph" :click="navigation('glyph')"/>
     </div>
 </nav>
 </template>
 <script>
     export default {
-        name: 'Navbar'
+        name: 'Navbar',
+        methods: {
+            navigation(path){
+                console.log(path)
+            }
+        }
     };
 </script>

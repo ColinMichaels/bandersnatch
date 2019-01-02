@@ -1,9 +1,9 @@
 <template>
-        <button v-if="objType === 'text'" type="button" class="choice" :action="action"
+        <button v-if="typeId === 1" type="button" class="choice" :action="action"
                 :text="text" v-on:click.prevent="takeAction(action)">{{text}}
         </button>
 
-        <img  v-else-if="objType === 'img'" class="choice" :action="action" :src="text"  v-on:click.prevent="takeAction(action)" />
+        <img  v-else-if="typeId === 2" class="choice" :action="action" :src="text"  v-on:click.prevent="takeAction(action)" />
 </template>
 
 <script>
@@ -12,7 +12,7 @@
         props: {
             text: '',
             action: '',
-            objType: ''
+            typeId: ''
         },
         methods: {
             takeAction: function (action) {

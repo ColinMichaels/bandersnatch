@@ -16,6 +16,9 @@ class CreatePlayersTable extends Migration
         Schema::create('players', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedTinyInteger( 'game_id');
+            $table->unsignedTinyInteger( 'user_id');
+            $table->string('username')->unique();
+            $table->string('email')->unique();
             $table->timestamps();
         });
     }

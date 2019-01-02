@@ -15,7 +15,10 @@ class CreateSoundsTable extends Migration
     {
         Schema::create('sounds', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedTinyInteger( 'sound_type_id');
+            $table->string( 'type')->default('music');
+            $table->string('mime')->default('mp3');
+            $table->string('location')->default('internal');
+            $table->string('creator')->nullable();
             $table->string('title')->nullable();
             $table->string('source');
             $table->timestamps();

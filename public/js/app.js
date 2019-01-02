@@ -47845,75 +47845,42 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
 
 
 
+
+var api = '/api/game';
 
 var beep_yes = new __WEBPACK_IMPORTED_MODULE_2_howler__["Howl"]({ src: ['/audio/comp_beep_yes.mp3'] });
 var beep_no = new __WEBPACK_IMPORTED_MODULE_2_howler__["Howl"]({ src: ['/audio/comp_beep_no.mp3'] });
 var beep_typing = new __WEBPACK_IMPORTED_MODULE_2_howler__["Howl"]({ src: ['/audio/comp_beep_typing.mp3'] });
 var music = new __WEBPACK_IMPORTED_MODULE_2_howler__["Howl"]({
-    src: ['/audio/Lee_Rosevere_-_01_-_Sleep_Trance.mp3'],
+    src: [this.music_src],
     autoplay: true,
     loop: true,
     volume: 0.5
 });
-__WEBPACK_IMPORTED_MODULE_2_howler__["Howler"].volume(0.5);
-music.load();
+
+__WEBPACK_IMPORTED_MODULE_2_howler__["Howler"].volume(0.9);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            choices: [{
-                id: 1,
-                text: 'Yes',
-                action: 1,
-                objType: 'text'
-            }, {
-                id: 2,
-                text: 'No',
-                action: 2,
-                objType: 'text'
-                // ,{
-                //     id:3,
-                //     text: 'https://place-hold.it/300x500/666/fff/000.gif',
-                //     action: false,
-                //     objType: 'img'
-                // }
-            }, {
-                id: 3,
-                text: 'Am I?',
-                action: 3,
-                objType: 'text'
-            }],
-            responses: [{
-                type: 1,
-                text: "It is certain"
-            }, {
-                type: 1,
-                text: 'It is decidedly so.'
-            }, {
-                type: 1,
-                text: 'Without a doubt.'
-            }, {
-                type: 1,
-                text: 'Yes - definitely.'
-            }, {
-                type: 1,
-                text: 'You may rely on it.'
-            }, {
-                type: 2,
-                text: ' Reply hazy, try again.'
-            }, {
-                type: 2,
-                text: 'Reply hazy, try again.'
-            }, {
-                type: 2,
-                text: 'Better not tell you now.'
-            }]
+            game: [],
+            player_id: 1,
+            scene_id: 1,
+            next_scene_id: 1,
+            music: [],
+            music_src: '',
+            question: '',
+            choices: [],
+            responses: []
         };
     },
 
@@ -47929,29 +47896,66 @@ music.load();
     },
     methods: {
         updateMessage: function updateMessage(action) {
+            var _this = this;
+
             __WEBPACK_IMPORTED_MODULE_3__event_bus_js__["a" /* EventBus */].$emit('update-console', '... LISTENING');
             beep_yes.play();
-            if (action === 1) {
-                __WEBPACK_IMPORTED_MODULE_3__event_bus_js__["a" /* EventBus */].$emit('update-message', "I'm glad you feel that way");
-            } else if (action === 2) {
-                __WEBPACK_IMPORTED_MODULE_3__event_bus_js__["a" /* EventBus */].$emit('update-message', 'Ask me a question then. Just type it.');
-            } else {
-                __WEBPACK_IMPORTED_MODULE_3__event_bus_js__["a" /* EventBus */].$emit('update-message', "Why don't you try again");
-            }
+            __WEBPACK_IMPORTED_MODULE_3__event_bus_js__["a" /* EventBus */].$emit('update-message', this.responses[action - 1] ? this.responses[action - 1].text : "Not sure what to say about that");
             __WEBPACK_IMPORTED_MODULE_3__event_bus_js__["a" /* EventBus */].$emit('update-input', 'clear');
+            this.next_scene_id = this.responses[action - 1] ? this.responses[action - 1].next_scene_id : 1;
+            music.fade(0.5, 0.0, 3000);
+            setTimeout(function () {
+                _this.loadNextScene();
+            }, 2000);
+        },
+        loadNextScene: function loadNextScene() {
+            var _this2 = this;
+
+            __WEBPACK_IMPORTED_MODULE_3__event_bus_js__["a" /* EventBus */].$emit('update-console', '...THINKING');
+            axios.get(api + '/scene/' + this.next_scene_id + '/' + this.player_id + '/' + this.scene_id).then(function (res) {
+                _this2.updateScene(res.data);
+            }).catch(function (err) {
+                console.log(err);
+            });
+        },
+        getGame: function getGame(player_id) {
+            var _this3 = this;
+
+            axios.get(api + '/player/' + player_id).then(function (res) {
+                _this3.updateScene(res.data);
+            }).catch(function (err) {
+                console.log(err);
+            });
+        },
+        updateScene: function updateScene(data) {
+            music.fade(0.0, 0.5, 2000);
+            __WEBPACK_IMPORTED_MODULE_3__event_bus_js__["a" /* EventBus */].$emit('update-console', '');
+            this.game = data;
+            var cur_game = this.game[0];
+            this.choices = cur_game.choices;
+            this.responses = cur_game.responses;
+            this.music_src = cur_game.music;
+            this.scene_id = cur_game.scene;
+            this.question = cur_game.question;
+            this.playMusic(music, '/audio/' + this.music_src);
+            __WEBPACK_IMPORTED_MODULE_3__event_bus_js__["a" /* EventBus */].$emit('update-message', this.question);
+        },
+        playMusic: function playMusic(source, newSrc) {
+            //source.unload(true);
+            // source.src = newSrc;
+            source._src = newSrc;
+            source.load();
+            source.play();
         }
+    },
+    beforeMount: function beforeMount() {
+        this.getGame(this.player_id);
     },
     mounted: function mounted() {
         __WEBPACK_IMPORTED_MODULE_3__event_bus_js__["a" /* EventBus */].$on('action-choice', this.updateMessage);
-
-        music.play();
-
-        var self = this;
-
         window.addEventListener('keyup', function (ev) {
-            var self = this;
-            var keyCode = String.fromCharCode(ev.keyCode);
 
+            var keyCode = String.fromCharCode(ev.keyCode);
             if (ev.keyCode === 32) beep_no.play();
 
             if (/^[A-Za-z0-9 ]*[A-Za-z0-9][A-Za-z0-9 ]*$/.test(keyCode)) {
@@ -48033,13 +48037,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 var timeout = 100;
 
 
+var memory = parseInt(Math.floor(Math.random() * (640000 - 64000 - 1) + 64000));
+
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
             message: '',
             classEfx: '',
             inputMessage: '',
-            consoleMessage: '****** BANDERSNATCH ****** <br/> 64K RAM SYSTEM 38911 BASIC BYTES FREE',
+            consoleMessage: '****** BANDERSNATCH ****** <br/> 64K RAM SYSTEM ' + memory + ' BASIC BYTES FREE',
             consoleClass: 'computer typewriter'
         };
     },
@@ -48083,14 +48089,13 @@ var timeout = 100;
 
         setTimeout(function () {
 
-            _this2.updateMessage("**** welcome to Bandersnatch *****");
+            // this.updateMessage("**** welcome to Bandersnatch *****");
             setTimeout(function () {
                 $('.top-bar, .bottom-bar').removeClass('active');
 
                 setTimeout(function () {
                     $('.container').addClass('active');
                     _this2.updateInput('');
-                    _this2.updateMessage("Do you believe you are in control of your own destiny?");
                 }, timeout * 3);
             }, timeout * 4);
         }, timeout * 5);
@@ -48196,7 +48201,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     props: {
         text: '',
         action: '',
-        objType: ''
+        typeId: ''
     },
     methods: {
         takeAction: function takeAction(action) {
@@ -48213,7 +48218,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm.objType === "text"
+  return _vm.typeId === 1
     ? _c(
         "button",
         {
@@ -48228,7 +48233,7 @@ var render = function() {
         },
         [_vm._v(_vm._s(_vm.text) + "\n")]
       )
-    : _vm.objType === "img"
+    : _vm.typeId === 2
     ? _c("img", {
         staticClass: "choice",
         attrs: { action: _vm.action, src: _vm.text },
@@ -51406,7 +51411,15 @@ var render = function() {
     "section",
     { staticClass: "section game" },
     [
-      _c("div", { staticClass: "top-bar" }),
+      _c("div", { staticClass: "top-bar" }, [
+        _c("h4", [_vm._v("Music Src: " + _vm._s(_vm.music_src))]),
+        _vm._v(" "),
+        _c("h4", [
+          _vm._v(
+            "Scene: " + _vm._s(_vm.scene_id) + " | " + _vm._s(_vm.next_scene_id)
+          )
+        ])
+      ]),
       _vm._v(" "),
       _c("Screen"),
       _vm._v(" "),
@@ -51420,7 +51433,7 @@ var render = function() {
               attrs: {
                 action: choice.action,
                 text: choice.text,
-                "obj-type": choice.objType
+                "type-id": choice.type_id
               }
             })
           }),
@@ -51527,7 +51540,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    name: 'Navbar'
+    name: 'Navbar',
+    methods: {
+        navigation: function navigation(path) {
+            console.log(path);
+        }
+    }
 });
 
 /***/ }),
@@ -51538,50 +51556,58 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c(
+    "nav",
+    {
+      staticClass: "navbar is-fixed-top",
+      attrs: { role: "navigation", "aria-label": "Main Navigation" }
+    },
+    [
+      _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "navbar-menu", attrs: { id: "app-navbar-collapse" } },
+        [
+          _c("img", {
+            attrs: {
+              src: "/images/Glyph.svg",
+              alt: "Glyph",
+              click: _vm.navigation("glyph")
+            }
+          })
+        ]
+      )
+    ]
+  )
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "nav",
-      {
-        staticClass: "navbar is-fixed-top",
-        attrs: { role: "navigation", "aria-label": "Main Navigation" }
-      },
-      [
-        _c("div", { staticClass: "navbar-header" }, [
-          _c(
-            "a",
-            {
-              staticClass: "navbar navbar-burger",
-              attrs: {
-                role: "button",
-                type: "button",
-                "aria-expanded": "false",
-                "aria-label": "menu",
-                "data-target": "#app-navbar-collapse"
-              }
-            },
-            [
-              _c("span", { attrs: { "aria-hidden": "true" } }),
-              _vm._v(" "),
-              _c("span", { attrs: { "aria-hidden": "true" } }),
-              _vm._v(" "),
-              _c("span", { attrs: { "aria-hidden": "true" } })
-            ]
-          )
-        ]),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "navbar-menu", attrs: { id: "app-navbar-collapse" } },
-          [_c("img", { attrs: { src: "/images/Glyph.svg", alt: "Glyph" } })]
-        )
-      ]
-    )
+    return _c("div", { staticClass: "navbar-header" }, [
+      _c(
+        "a",
+        {
+          staticClass: "navbar navbar-burger",
+          attrs: {
+            role: "button",
+            type: "button",
+            "aria-expanded": "false",
+            "aria-label": "menu",
+            "data-target": "#app-navbar-collapse"
+          }
+        },
+        [
+          _c("span", { attrs: { "aria-hidden": "true" } }),
+          _vm._v(" "),
+          _c("span", { attrs: { "aria-hidden": "true" } }),
+          _vm._v(" "),
+          _c("span", { attrs: { "aria-hidden": "true" } })
+        ]
+      )
+    ])
   }
 ]
 render._withStripped = true

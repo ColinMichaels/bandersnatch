@@ -18,7 +18,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-Route::group(['prefix' => 'game', 'namespace' => 'Api',  'middleware' => 'auth:api'], function () {
+Route::group(['prefix' => 'game', 'namespace' => 'Api'], function () {
     Route::apiResource('scenes', 'SceneController');
+    Route::get('player/{id}', 'GameController@getGame');
+    Route::get('scene/{scene_id}/{player_id}/{prev_scene_id}', 'GameController@getScene');
+    Route::apiResource('games', 'GameController');
 });
 

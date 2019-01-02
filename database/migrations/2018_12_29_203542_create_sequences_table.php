@@ -15,6 +15,9 @@ class CreateSequencesTable extends Migration
     {
         Schema::create('sequences', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedTinyInteger( 'game_id');
+            $table->unsignedTinyInteger( 'choice_id');
+            $table->unsignedTinyInteger( 'response_id');
             $table->timestamps();
         });
     }

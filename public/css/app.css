@@ -7,6 +7,268 @@
 
 /* MEDIA QUERY BREAKPOINTS */
 
+/* =============================================================
+
+    Tables v1.0
+    Simple table styling by Chris Ferdinandi.
+    http://gomakethings.com
+
+    Adapted from Twitter Bootstrap.
+    http://twitter.github.com/bootstrap/
+
+    Licensed under the Apache License v2.0
+    http://www.apache.org/licenses/LICENSE-2.0
+
+ * ============================================================= */
+
+/* =============================================================
+    RESPONSIVE RESET
+    Replace with your own.
+ * ============================================================= */
+
+@-webkit-viewport {
+  width: device-width;
+  zoom: 1.0;
+}
+
+@-moz-viewport {
+  width: device-width;
+  zoom: 1.0;
+}
+
+@-ms-viewport {
+  width: device-width;
+  zoom: 1.0;
+}
+
+@-o-viewport {
+  width: device-width;
+  zoom: 1.0;
+}
+
+@viewport {
+  width: device-width;
+  zoom: 1.0;
+}
+
+html {
+  overflow-y: auto;
+}
+
+img,
+audio,
+video,
+canvas {
+  max-width: 100%;
+}
+
+/*  Sets Body Width */
+
+.container {
+  max-width: 80em;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* =============================================================
+    TABLES
+    Table styling.
+ * ============================================================= */
+
+/*  Removes default browser settings
+ *  and evens out inconsistencies. */
+
+table {
+  max-width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/*  Sets table width to 100%.
+ *  Adds bottom-margin. */
+
+.table,
+table {
+  width: 100%;
+  margin-bottom: 1.52941177em;
+}
+
+/*  Adds table cell padding,
+ *  aligns text to the left,
+ *  and adds a top border to each cell. */
+
+.table th,
+table th,
+.table td,
+table td {
+  padding: 0.47058824em;
+  text-align: left;
+  border-top: 0.07142857em solid #b8b8b8;
+}
+
+/*  Sets table header font-weight to bold.
+ *  Aligns table header text to the bottom of each cell. */
+
+.table th,
+table th {
+  font-weight: bold;
+  vertical-align: bottom;
+}
+
+/*  Aligns cell text to the top of each cell. */
+
+.table td,
+table td {
+  vertical-align: top;
+}
+
+/*  Removes the border-top from the first row. */
+
+.table thead:first-child tr th,
+table thead:first-child tr th,
+.table thead:first-child tr td,
+table thead:first-child tr td {
+  border-top: 0;
+}
+
+/*  Adds border-top between two table-body sections. */
+
+.table tbody + tbody,
+table tbody + tbody {
+  border-top: 0.14285714em solid #b8b8b8;
+}
+
+/*  Reduces cell padding */
+
+.table-condensed th,
+.table-condensed td {
+  padding: 0.29411765em;
+}
+
+/* Adds borders and border-radius. */
+
+.table-bordered {
+  border: 0.07142857em solid #b8b8b8;
+  border-collapse: separate;
+  *border-collapse: collapsed;
+  border-radius: 0.47058824em;
+}
+
+.table-bordered th + th,
+.table-bordered td + td,
+.table-bordered th + td,
+.table-bordered td + th {
+  border-left: 0.07142857em solid #b8b8b8;
+}
+
+.table-bordered thead:first-child tr:first-child th,
+.table-bordered tbody:first-child tr:first-child th,
+.table-bordered tbody:first-child tr:first-child td {
+  border-top: 0;
+}
+
+.table-bordered thead:first-child tr:first-child th:first-child,
+.table-bordered tbody:first-child tr:first-child td:first-child {
+  border-radius: 0.47058824em 0 0 0;
+}
+
+.table-bordered thead:first-child tr:first-child th:last-child,
+.table-bordered tbody:first-child tr:first-child td:last-child {
+  border-radius: 0 0.47058824em 0 0;
+}
+
+.table-bordered thead:last-child tr:last-child th:first-child,
+.table-bordered tbody:last-child tr:last-child td:first-child {
+  border-radius: 0 0 0 0.47058824em;
+}
+
+.table-bordered thead:last-child tr:last-child th:last-child,
+.table-bordered tbody:last-child tr:last-child td:last-child {
+  border-radius: 0 0 0.47058824em 0;
+}
+
+input,
+select,
+textarea,
+fieldset {
+  font-family: var(--form-field-font-family);
+  font-size: var(--form-field-font-size);
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+label {
+  vertical-align: middle;
+  color: #fff;
+  font-size: 1.2em;
+}
+
+form .form-group {
+  margin: 20px auto;
+}
+
+form ::-moz-selection {
+  background: rgba(107, 94, 181, 0.4);
+}
+
+form ::selection {
+  background: rgba(107, 94, 181, 0.4);
+}
+
+input[type=text],
+input[type=date],
+input[type=datetime],
+input[type=datetime-local],
+input[type=email],
+input[type=month],
+input[type=number],
+input[type=password],
+input[type=search],
+input[type=tel],
+input[type=time],
+input[type=url],
+input[type=week] {
+  height: var(--form-field-height);
+  font-size: 1.5em;
+  padding: 20px;
+  vertical-align: middle;
+  -webkit-appearance: none;
+}
+
+input[type=submit] {
+  -webkit-appearance: none;
+  padding: 20px;
+  font-size: 1.5em;
+  background: #f6993f;
+  border: 2px solid transparent;
+  width: 100%;
+  margin: 10px auto;
+}
+
+input[type=submit]:hover {
+  background: #111111;
+  border: 2px solid #f6993f;
+  color: #fff;
+}
+
+select {
+  line-height: 1.75;
+  padding: var(--form-field-padding-y) var(--form-field-padding-x);
+}
+
+select:not([multiple]) {
+  height: var(--form-field-height);
+  vertical-align: middle;
+}
+
+textarea {
+  line-height: 1.75;
+  padding: var(--form-field-padding-y) var(--form-field-padding-x);
+}
+
 *,
 *:before,
 *:after {
@@ -36,6 +298,14 @@ body.dark {
   outline: none;
 }
 
+.btn {
+  background: #6b5eb5;
+  color: #fff;
+  font-size: 1.4em;
+  padding: 20px 30px;
+  margin-bottom: 20px;
+}
+
 h1,
 h2,
 h3,
@@ -55,6 +325,52 @@ h1 {
 h3 {
   font-size: 2.5em;
   color: forestgreen;
+}
+
+table {
+  color: #fff;
+  font-size: 2em;
+}
+
+table.small {
+  font-size: 1.25em;
+}
+
+table tr,
+table td,
+table th {
+  color: #fff;
+}
+
+section.admin {
+  margin-top: 200px;
+}
+
+section.admin .options {
+  padding: 50px 0;
+}
+
+section.admin .grid {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -moz-justify-content: space-evenly;
+  -ms-justify-content: space-evenly;
+  -webkit-box-pack: space-evenly;
+          justify-content: space-evenly;
+  -ms-flex-pack: space-evenly;
+  -ms-flex-flow: row wrap;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-flow: row wrap;
+}
+
+section.admin .grid .half {
+  width: 50%;
+}
+
+section.admin .grid .full {
+  width: 100%;
 }
 
 .text-red {

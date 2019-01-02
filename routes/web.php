@@ -11,6 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/','GameController@index');
+
+Route::resource('scenes', 'SceneController');
+
+

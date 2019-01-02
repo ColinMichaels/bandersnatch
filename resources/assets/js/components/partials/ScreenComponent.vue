@@ -12,13 +12,15 @@
     let timeout = 100;
     import {EventBus} from '../../event-bus.js'
 
+    let memory = parseInt(Math.floor(Math.random() * (640000 - 64000 -1 )+ 64000));
+
     export default {
         data() {
             return {
                 message: '',
                 classEfx: '',
                 inputMessage: '',
-                consoleMessage: '****** BANDERSNATCH ****** <br/> 64K RAM SYSTEM 38911 BASIC BYTES FREE',
+                consoleMessage: '****** BANDERSNATCH ****** <br/> 64K RAM SYSTEM '+ memory +' BASIC BYTES FREE',
                 consoleClass: 'computer typewriter'
             }
         },
@@ -58,14 +60,13 @@
         created() {
             setTimeout(() => {
 
-                this.updateMessage("**** welcome to Bandersnatch *****");
+               // this.updateMessage("**** welcome to Bandersnatch *****");
                 setTimeout(() => {
                     $('.top-bar, .bottom-bar').removeClass('active');
 
                     setTimeout(() => {
                         $('.container').addClass('active');
                         this.updateInput('');
-                        this.updateMessage("Do you believe you are in control of your own destiny?");
                     }, timeout * 3);
 
 
