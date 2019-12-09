@@ -12,7 +12,7 @@
         "spatie/laravel-fractal": "^5.4",
         "spatie/laravel-medialibrary": "7.5.*",
         "laravelcollective/html": "^5.4.0",
-        "nesbot/carbon": "1.22.*"
+        "nesbot/carbon": "1.39.*"
     },
     "require-dev": {
         "filp/whoops": "^2.0",
